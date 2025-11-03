@@ -21,8 +21,16 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Build
-      run: npm run build
+    - name: Build with debug
+      run: |
+        npm run build
+        # Debug: listar contenido de dist
+        echo "=== Contenido de dist/ ==="
+        ls -la dist/
+        echo "=== Contenido de index.html ==="
+        head -20 dist/index.html
+        # Crear 404.html para SPA
+        cp dist/index.html dist/404.html
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
