@@ -1,6 +1,6 @@
 {
   "name": "hito-1-pizzeria-mamma-mia",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
