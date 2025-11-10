@@ -1,6 +1,10 @@
 import { formatPrice } from "../utils/formatters";
 
 const CardPizza = ({ name, price, ingredients, img }) => {
+  const capitalizeFirstLetter = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   return (
     <div className="card h-100 shadow-sm">
       <img
@@ -10,13 +14,16 @@ const CardPizza = ({ name, price, ingredients, img }) => {
         style={{ height: "200px", objectFit: "cover" }}
       />
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{name}</h5>
+        <h5 className="card-title">{capitalizeFirstLetter(name)}</h5> 
         <hr />
-        <p className="card-text flex-grow-1 text-center">
-          <strong>Ingredientes:</strong>
-          <br />
-          🍕 {ingredients.join(", ")}
-        </p>
+          <strong className="d-block mb-2">Ingredientes:</strong>
+          <ul className="card-text list-unstyled mb-0">
+            {ingredients.map((ingredient, index) => (
+              <li key={index} className="d-flex align-items-center">
+                <span className="text-capitalize">{ingredient}</span>
+              </li>
+            ))}
+          </ul>
         <hr />
         <div className="mt-auto">
           <div className="d-flex justify-content-between align-items-center mb-3">

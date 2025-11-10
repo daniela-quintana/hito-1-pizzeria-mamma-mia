@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { formatPrice } from '../utils/formatters'
 
 const Navbar = () => {
-  const total = 25000
+  const total = 0
   const token = false
 
   return (
