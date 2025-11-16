@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import { formatPrice } from "../utils/formatters";
 
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ name, price, ingredients, img, id }) => {
   const capitalizeFirstLetter = (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
@@ -32,7 +33,9 @@ const CardPizza = ({ name, price, ingredients, img }) => {
             </span>
           </div>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-outline-dark">Ver más 👀</button>
+            <Link to={`/pizza/${id}`} className="btn btn-outline-dark">
+              Ver más 👀
+            </Link>
             <button className="btn btn-dark">Añadir 🛒</button>
           </div>
         </div>
