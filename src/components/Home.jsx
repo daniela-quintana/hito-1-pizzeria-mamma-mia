@@ -11,7 +11,7 @@ const Home = () => {
     const fetchPizzas = async () => {
       try {
         setLoading(true)
-        const response = await fetch('http://localhost:5001/api/pizzas')
+        const response = await fetch('http://localhost:5000/api/pizzas')
 
         if (!response.ok) {
           throw new Error('Error al cargar las pizzas')
