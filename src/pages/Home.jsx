@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Header from './Header'
-import CardPizza from './CardPizza'
+import Header from '../components/Header'
+import CardPizza from '../components/CardPizza'
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([])
@@ -11,7 +11,7 @@ const Home = () => {
     const fetchPizzas = async () => {
       try {
         setLoading(true)
-        const response = await fetch('http://localhost:5000/api/pizzas')
+        const response = await fetch('http://localhost:5001/api/pizzas')
 
         if (!response.ok) {
           throw new Error('Error al cargar las pizzas')
@@ -46,7 +46,7 @@ const Home = () => {
         <div className="alert alert-danger text-center">
           <h5>Error al cargar las pizzas</h5>
           <p>{error}</p>
-          <small>Asegúrate de que el backend esté ejecutándose en http://localhost:5000</small>
+          <small>Asegúrate de que el backend esté ejecutándose en http://localhost:5001</small>
         </div>
       </div>
     )

@@ -1,62 +1,63 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
-  const [errors, setErrors] = useState({})
-  const [success, setSuccess] = useState(false)
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
+      [name]: value,
+    }));
 
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
-      }))
+        [name]: "",
+      }));
     }
-  }
+  };
 
   const validateForm = () => {
-    const newErrors = {}
+    const newErrors = {};
 
     if (!formData.email) {
-      newErrors.email = 'El correo es obligatorio'
+      newErrors.email = "El correo es obligatorio";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'El correo no es válido'
+      newErrors.email = "El correo no es válido";
     }
 
     if (!formData.password) {
-      newErrors.password = 'La contraseña es obligatoria'
+      newErrors.password = "La contraseña es obligatoria";
     } else if (formData.password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres'
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
     }
 
-    return newErrors
-  }
+    return newErrors;
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const formErrors = validateForm()
+    e.preventDefault();
+    const formErrors = validateForm();
 
     if (Object.keys(formErrors).length === 0) {
-      setSuccess(true)
-      setErrors({})
+      setSuccess(true);
+      setErrors({});
       setFormData({
-        email: '',
-        password: ''
-      })
+        email: "",
+        password: "",
+      });
     } else {
-      setErrors(formErrors)
-      setSuccess(false)
+      setErrors(formErrors);
+      setSuccess(false);
     }
-  }
+  };
 
   return (
     <div className="container my-5">
@@ -74,10 +75,14 @@ const Login = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Correo</label>
+                  <label htmlFor="email" className="form-label">
+                    Correo
+                  </label>
                   <input
                     type="email"
-                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
                     id="email"
                     name="email"
                     value={formData.email}
@@ -90,10 +95,14 @@ const Login = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label htmlFor="password" className="form-label">Contraseña</label>
+                  <label htmlFor="password" className="form-label">
+                    Contraseña
+                  </label>
                   <input
                     type="password"
-                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      errors.password ? "is-invalid" : ""
+                    }`}
                     id="password"
                     name="password"
                     value={formData.password}
@@ -105,16 +114,22 @@ const Login = () => {
                   )}
                 </div>
 
-                <button type="submit" className="btn btn-warning w-100 py-2">
+                <button type="submit" className="btn btn-warning w-100 py-2 fw-bold">
                   Iniciar Sesión
                 </button>
               </form>
+              <div className="mt-3 text-center">
+                <span className="text-center">
+                  ¿No tienes una cuenta?
+                  <Link to="/register"> Regístrate</Link>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Login;

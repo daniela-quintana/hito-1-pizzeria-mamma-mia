@@ -26,14 +26,14 @@ const Navbar = () => {
           <div className="navbar-nav ms-auto d-flex flex-column flex-lg-row align-items-end align-items-lg-center gap-2 py-2 py-lg-0">
 
             <Link className="btn btn-outline-light" to="/">
-              🍕 Home
+              Home
             </Link>
 
             {token ? (
               <div className="d-flex flex-column flex-lg-row gap-2">
-                <button className="btn btn-outline-light">
+                <Link className="btn btn-outline-light" to="/profile">
                   🔓 Profile
-                </button>
+                </Link>
                 <button className="btn btn-outline-light">
                   🔒 Logout
                 </button>
@@ -41,17 +41,20 @@ const Navbar = () => {
             ) : (
               <div className="d-flex flex-column flex-lg-row gap-2">
                 <Link className="btn btn-outline-light" to="/login">
-                  🔐 Login
+                  Login
                 </Link>
                 <Link className="btn btn-outline-light" to="/register">
-                  🔐 Register
+                  Register
+                </Link>
+                <Link className='btn btn-outline-light' to="/profile">
+                  Profile
                 </Link>
               </div>
             )}
 
-            <button className="btn btn-warning mt-lg-0">
+            <Link className="btn btn-warning mt-lg-0" to="/cart">
               🛒 ${formatPrice(total)}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

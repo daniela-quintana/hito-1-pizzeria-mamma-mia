@@ -15,7 +15,7 @@ const Pizza = () => {
         setLoading(true)
 
         const pizzaId = id || 'p001'
-        const response = await fetch(`http://localhost:5000/api/pizzas/${pizzaId}`)
+        const response = await fetch(`http://localhost:5001/api/pizzas/${pizzaId}`)
 
         if (!response.ok) {
           throw new Error('Pizza no encontrada')
