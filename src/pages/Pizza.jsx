@@ -1,28 +1,29 @@
-
 import { useState, useEffect } from 'react'
 import { formatPrice } from '../utils/formatters'
 import { useParams } from 'react-router-dom'
+import { usePizza } from '../context/PizzaContext'
+import { useCart } from '../context/CartContext'
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { id } = useParams()
+  const { getPizzaById } = usePizza()
+  const { addToCart } = useCart()
 
   useEffect(() => {
     const fetchPizza = async () => {
       try {
         setLoading(true)
-
         const pizzaId = id || 'p001'
-        const response = await fetch(`http://localhost:5000/api/pizzas/${pizzaId}`)
+        const pizzaData = await getPizzaById(pizzaId)
 
-        if (!response.ok) {
+        if (pizzaData) {
+          setPizza(pizzaData)
+        } else {
           throw new Error('Pizza no encontrada')
         }
-
-        const data = await response.json()
-        setPizza(data)
       } catch (err) {
         setError(err.message)
       } finally {
@@ -31,7 +32,14 @@ const Pizza = () => {
     }
 
     fetchPizza()
-  }, [id])
+  }, [id, getPizzaById])
+
+  const handleAddToCart = () => {
+    if (pizza) {
+      addToCart(pizza)
+      alert(`¡${pizza.name} agregada al carrito!`)
+    }
+  }
 
   if (loading) {
     return (
@@ -102,7 +110,10 @@ const Pizza = () => {
           </div>
 
           <div className="d-grid">
-            <button className="btn btn-warning btn-lg py-3">
+            <button 
+              className="btn btn-warning btn-lg py-3"
+              onClick={handleAddToCart}
+            >
               Añadir al Carrito 🛒
             </button>
           </div>

@@ -1,46 +1,14 @@
-import { useState } from "react";
-import { formatPrice } from "../utils/formatters";
-import { pizzaCart } from "../assets/js/pizzas";
+import { formatPrice } from '../utils/formatters'
+import { useCart } from '../context/CartContext'
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(pizzaCart);
-
-  const increaseQuantity = (id) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, count: item.count + 1 } : item
-      )
-    );
-  };
-
-  const decreaseQuantity = (id) => {
-    setCartItems(
-      (prevItems) =>
-        prevItems
-          .map((item) => {
-            if (item.id === id) {
-              const newCount = item.count - 1;
-              if (newCount === 0) {
-                return null;
-              }
-              return { ...item, count: newCount };
-            }
-            return item;
-          })
-          .filter((item) => item !== null)
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const calculateTotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.count,
-      0
-    );
-  };
+  const {
+    cartItems,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+    calculateTotal
+  } = useCart()
 
   return (
     <div className="container my-5">
@@ -109,7 +77,7 @@ const Cart = () => {
                           <div className="col-md-1 text-end">
                             <button
                               className="btn btn-outline-danger btn-sm"
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeFromCart(item.id)}
                             >
                               🗑️
                             </button>
@@ -151,7 +119,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

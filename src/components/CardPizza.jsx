@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom'
-import { formatPrice } from "../utils/formatters";
+import { formatPrice } from "../utils/formatters"
+import { useCart } from '../context/CartContext'
 
-const CardPizza = ({ name, price, ingredients, img, id }) => {
+const CardPizza = ({ name, price, ingredients, img, id, pizza }) => {
+  const { addToCart } = useCart()
+  
   const capitalizeFirstLetter = (text) => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  };
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  }
+
+  const handleAddToCart = () => {
+    addToCart(pizza)
+    alert(`¡${capitalizeFirstLetter(name)} agregada al carrito!`)
+  }
 
   return (
     <div className="card h-100 shadow-sm">
@@ -36,12 +44,17 @@ const CardPizza = ({ name, price, ingredients, img, id }) => {
             <Link to={`/pizza/${id}`} className="btn btn-outline-dark">
               Ver más 👀
             </Link>
-            <button className="btn btn-dark">Añadir 🛒</button>
+            <button 
+              className="btn btn-dark"
+              onClick={handleAddToCart}
+            >
+              Añadir 🛒
+            </button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CardPizza;
+export default CardPizza
